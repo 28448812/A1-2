@@ -1,0 +1,42 @@
+{
+    "nav": {
+        "logoTitle": "Nutrition Education Hub",
+        "navList": ["Nutrition Education", "Recipes", "Events", "About US"]
+    },
+    "banner": {
+        "bannerTitle": "Empowering Health Through Nutrition Education",
+        "bannerDes": "Discover comprehensive resources and expert guidance to promote better health outcomes through informed nutritional choices.",
+        "bannerBtnName": " Get Started "
+    },
+    "EducationalResources": {
+        "title": "Educational Resources",
+        "des": "Explore our curated collection of nutrition education materials designed to help you make informed dietary choices.",
+        "categories": [
+            {
+                "title": "Healthy Eating Basics",
+                "description": "Learn fundamental principles of balanced nutrition and dietary guidelines.",
+                "image": "1.jpg"
+            },
+            {
+                "title": "Nutrition & Mental Health",
+                "description": "Explore the connection between diet and psychological well-being.",
+                "image": "2.jpg"
+            },
+            {
+                "title": "Nutrition for Vulnerable Groups",
+                "description": "Specialized dietary guidance for different population segments.",
+                "image": "3.jpg"
+            },
+            {
+                "title": "Cultural and Community Nutrition",
+                "description": "Understanding diverse dietary practices and community health.",
+                "image": "4.jpg"
+            },
+            {
+                "title": "School Nutrition Programs",
+                "description": "Resources for implementing healthy eating in educational settings.",
+                "image": "5.jpg"
+            }
+        ]
+    }
+}

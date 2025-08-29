@@ -1,11 +1,25 @@
-<script setup></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+    <router-view />
+    <Toast />
 </template>
+<script setup>
+</script>
+<style lang="scss">
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
 
-<style scoped></style>
+#app {
+    // overflow: hidden;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    // color: #2c3e50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+</style>
