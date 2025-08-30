@@ -13,6 +13,11 @@ const router = createRouter({
             name: 'BeautiHome',
             component: () => import('@/views/BeautiHome.vue')
         },
+           {
+            path: '/auth/login',
+            name: 'login',
+            component: () => import('@/views/auth/Login.vue')
+        },
     ]
 });
 
