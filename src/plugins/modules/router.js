@@ -5,7 +5,7 @@ export default {
     install: () => {
         router.beforeEach(async (to, from, next) => {
             if (to.path == "/") {
-                next({ path: '/BeautiHome' });
+                next({ path: '/PublicHealth' });
             } else {
                 next();
             }

@@ -5,18 +5,23 @@ const router = createRouter({
     routes: [
        {
             path: '/',
-            name: 'BeautiHome',
-            component: () => import('@/views/BeautiHome.vue')
+            name: 'PublicHealth',
+            component: () => import('@/views/PublicHealth.vue')
         },
         {
-            path: '/BeautiHome',
-            name: 'BeautiHome',
-            component: () => import('@/views/BeautiHome.vue')
+            path: '/PublicHealth',
+            name: 'PublicHealth',
+            component: () => import('@/views/PublicHealth.vue')
         },
            {
             path: '/auth/login',
             name: 'login',
             component: () => import('@/views/auth/Login.vue')
+        },
+              {
+            path: '/auth/register',
+            name: 'register',
+            component: () => import('@/views/auth/Register.vue')
         },
     ]
 });
