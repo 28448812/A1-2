@@ -33,7 +33,10 @@
                             </button>
                         </div>
                     </div> -->
-                    <SplitButton icon="pi pi-user" :label="userName" :model="items" />
+                   
+
+                    <Button v-if="!isLogin" :as="RouterLink" to="/auth/login" label="Login"></Button>
+                     <SplitButton v-else icon="pi pi-user" :label="userName" :model="items" />
                 </div>
             </div>
 
@@ -102,8 +105,14 @@ import axios from "axios";
 const router = useRouter();
 
 import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { RouterLink } from 'vue-router';
 
-const heroImage = '9.jpg';
+
+const isLogin = computed(() => {
+     const userInfo = JSON.parse(localStorage.getItem('user'));
+     console.log(userInfo);
+    return userInfo?.GivenName.length > 0;
+});
 
 const userName = computed(() => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -116,7 +125,8 @@ const items = [
     {
         label: 'Logout',
         command: () => {
-            router.push('/auth/login');
+            // router.push('/auth/login');
+            localStorage.removeItem('user');
         }
     }
 ];
