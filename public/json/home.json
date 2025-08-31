@@ -15,27 +15,27 @@
             {
                 "title": "Healthy Eating Basics",
                 "description": "Learn fundamental principles of balanced nutrition and dietary guidelines.",
-                "image": "/img/123.jpg"
+                "image": "/img/1.jpg"
             },
             {
                 "title": "Nutrition & Mental Health",
                 "description": "Explore the connection between diet and psychological well-being.",
-                "image": "2.jpg"
+                "image": "/img/2.jpg"
             },
             {
                 "title": "Nutrition for Vulnerable Groups",
                 "description": "Specialized dietary guidance for different population segments.",
-                "image": "3.jpg"
+                "image": "/img/3.jpg"
             },
             {
                 "title": "Cultural and Community Nutrition",
                 "description": "Understanding diverse dietary practices and community health.",
-                "image": "4.jpg"
+                "image": "/img/4.jpg"
             },
             {
                 "title": "School Nutrition Programs",
                 "description": "Resources for implementing healthy eating in educational settings.",
-                "image": "5.jpg"
+                "image": "/img/5.jpg"
             }
         ]
     }

@@ -1,6 +1,7 @@
+<!-- CSS is included in the code: Use TailwindCSS. Install TailwindCSS to see the layout style effect. -->
 <template>
     <div class="min-h-[1024px] bg-gray-50">
-       
+       <!-- Navigation bar - add scroll effects and shadow transitions -->
         <nav class="h-16 border-b bg-white/95 backdrop-blur-sm fixed w-full z-50 transition-all duration-300" :class="{ 'shadow-md': isScrolled }">
             <div class="max-w-[1400px] mx-auto flex items-center px-4 md:px-8 justify-between h-full">
                 <div class="flex items-center gap-4 md:gap-12">
@@ -12,7 +13,7 @@
                         {{ item }}
                       </button>
                     </div>
-                   
+                    <!-- Mobile menu button -->
                     <button class="md:hidden text-gray-600" @click="toggleMobileMenu">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -40,7 +41,7 @@
                 </div>
             </div>
 
-          
+            <!-- Mobile Menu -->
             <div v-if="mobileMenuOpen" class="md:hidden bg-white border-t animate-fadeIn">
                 <div class="flex flex-col gap-2 p-4">
                    <button v-for="item in homeInfo.nav?.navList" class="text-left py-3 px-4 hover:bg-green-50 rounded-lg transition-colors text-gray-700">
@@ -50,7 +51,7 @@
             </div>
         </nav>
 
-   
+        <!-- Hero Section -->
         <div class="relative h-[600px] overflow-hidden pt-16">
             <div class="absolute inset-0 bg-cover bg-center" :style="{  transform: `translateY(${scrollY * 0.3}px)` }"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-green-800/50 to-transparent"></div>
@@ -63,12 +64,13 @@
             </div>
         </div>
 
+        <!-- Educational Resources Section -->
         <div class="max-w-[1400px] mx-auto px-4 py-16">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{{  homeInfo.EducationalResources?.title }}</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">{{  homeInfo.EducationalResources?.des  }}</p>
             </div>
-
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
                 <div v-for="(category, index) in homeInfo.EducationalResources?.categories" :key="index" class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2 group">
                     <div class="h-48 overflow-hidden">
@@ -83,7 +85,7 @@
             </div>
         </div>
 
-     
+        <!-- Trusted By Section -->
         <div class="bg-gray-100 py-12">
             <div class="max-w-[1400px] mx-auto px-4">
                 <p class="text-center text-gray-500 mb-8 text-sm uppercase tracking-wider">Trusted By</p>
@@ -131,19 +133,19 @@ const items = [
     }
 ];
 
-
+// Language selection related 
 const currentLanguage = ref('English');
 const showLanguage = ref(false);
 const languages = ['English', 'Spanish', 'French', 'German', 'Chinese'];
 
-
+// Mobile menu
 const mobileMenuOpen = ref(false);
 
-
+// Scroll effects 
 const isScrolled = ref(false);
 const scrollY = ref(0);
 
-
+// Language switching method
 const toggleLanguage = () => {
     showLanguage.value = !showLanguage.value;
 };
@@ -153,12 +155,12 @@ const selectLanguage = (lang: string) => {
     showLanguage.value = false;
 };
 
-
+// Mobile menu switch
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
-
+// Scroll event listener
 const handleScroll = () => {
     scrollY.value = window.scrollY;
     isScrolled.value = window.scrollY > 10;
@@ -169,7 +171,7 @@ onMounted(async ()=>{
   homeInfo.value =data;
 })
 
-
+// Listen for scroll events
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
 });

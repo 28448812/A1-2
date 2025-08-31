@@ -96,14 +96,14 @@ const initialValues = ref({
 
 
 function validateName(name) {
-  
+    // Check if the length is between 3 and 20
     if (name.length < 3 || name.length > 20) {
         return false;
     }
     
-  
+    // Regular expression: only letters (including uppercase and lowercase) are allowed
     const nameRegex = /^[A-Za-z]+$/;
-    
+    // Test if the name matches the regular expression
     return nameRegex.test(name);
 }
 
