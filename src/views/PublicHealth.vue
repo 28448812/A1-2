@@ -129,6 +129,7 @@ const items = [
         command: () => {
             // router.push('/auth/login');
             localStorage.removeItem('user');
+            location.reload();
         }
     }
 ];

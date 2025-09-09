@@ -32,7 +32,7 @@
 
                     <div class="flex items-center justify-between mt-4 gap-8">
                         <RouterLink to="/auth/register" class="font-bold text-[var(--primary-color)]">Register</RouterLink>
-                        <!-- <RouterLink to="/auth/forgotPassword" class="font-bold text-[var(--primary-color)]"> Forgot password?</RouterLink> -->
+                        <RouterLink to="/PublicHealth" class="font-bold text-[var(--primary-color)]"> Back</RouterLink>
                     </div>
                 </div>
             </Form>
