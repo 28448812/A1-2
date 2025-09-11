@@ -5,15 +5,23 @@ const router = createRouter({
     routes: [
        {
             path: '/',
-            name: 'PublicHealth',
-            component: () => import('@/views/PublicHealth.vue')
+            name: 'UserLayout',
+            component: () => import('@/views/UserLayout.vue'),
+            children:[
+                {
+                    path: '/PublicHealth',
+                    name: 'PublicHealth',
+                    component: () => import('@/views/PublicHealth.vue')
+                },
+                {
+                    path: '/resourcesDetail/:index',
+                    name: 'ResourceDetail',
+                    component:  () => import('@/views/ResourceDetail.vue'),
+                    props: true, // Enable props to receive route params
+                },
+            ]
         },
         {
-            path: '/PublicHealth',
-            name: 'PublicHealth',
-            component: () => import('@/views/PublicHealth.vue')
-        },
-           {
             path: '/auth/login',
             name: 'login',
             component: () => import('@/views/auth/Login.vue')
@@ -23,6 +31,7 @@ const router = createRouter({
             name: 'register',
             component: () => import('@/views/auth/Register.vue')
         },
+      
     ]
 });
 

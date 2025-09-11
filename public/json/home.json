@@ -1,7 +1,29 @@
 {
     "nav": {
         "logoTitle": "Nutrition Education Hub",
-        "navList": ["Nutrition Education", "Recipes", "Events", "About US"]
+        "navList": 
+            [
+           {
+             "name":"Home",
+            "url":"/PublicHealth"
+           },
+           {
+             "name":"Nutrition Education",
+             "url":""
+           },
+           {
+             "name":"Recipes",
+            "url":""
+           },
+           {
+             "name":"Events",
+            "url":""
+           },
+           {
+             "name":"About US",
+            "url":""
+           }
+        ]
     },
     "banner": {
         "bannerTitle": "Empowering Health Through Nutrition Education",
@@ -13,26 +35,31 @@
         "des": "Explore our curated collection of nutrition education materials designed to help you make informed dietary choices.",
         "categories": [
             {
+                "id":1,
                 "title": "Healthy Eating Basics",
                 "description": "Learn fundamental principles of balanced nutrition and dietary guidelines.",
                 "image": "/img/1.jpg"
             },
             {
+                "id":2,
                 "title": "Nutrition & Mental Health",
                 "description": "Explore the connection between diet and psychological well-being.",
                 "image": "/img/2.jpg"
             },
             {
+                "id":3,
                 "title": "Nutrition for Vulnerable Groups",
                 "description": "Specialized dietary guidance for different population segments.",
                 "image": "/img/3.jpg"
             },
             {
+                "id":4,
                 "title": "Cultural and Community Nutrition",
                 "description": "Understanding diverse dietary practices and community health.",
                 "image": "/img/4.jpg"
             },
             {
+                "id":5,
                 "title": "School Nutrition Programs",
                 "description": "Resources for implementing healthy eating in educational settings.",
                 "image": "/img/5.jpg"
