@@ -163,18 +163,30 @@
                         >
                             <!-- Commenter information -->
                             <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center gap-4">
+                                <div class="flex items-center gap-4 w-full">
                                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-lg">
                                         {{ comment.userName.charAt(0).toUpperCase() }}
                                     </div>
-                                    <div>
-                                        <h4 class="font-medium text-gray-800">{{ comment.userName }}</h4>
+                                    <div class="flex justify-between w-full">
+                                      <div>
+                                         <h4 class="font-medium text-gray-800">{{ comment.userName }}</h4>
                                         <p class="text-sm text-gray-500">{{ formatCommentTime(comment.timestamp) }}</p>
+                                      </div>
+                                       
+                                        <div>
+                                            <button
+                                                v-if="currentUserName==comment.userName" 
+                                                @click="confirmDelete(comment.id)"
+                                                class="px-3 py-1 text-xs bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors"
+                                            >
+                                              <i class="fas fa-trash mr-1"></i>Delete
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Edited tag -->
                                 <span v-if="comment.edited" class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">
-                                    Edited by Admin
+                                    <!-- Edited by Admin -->
                                 </span>
                             </div>
                             <!-- Comment content -->
@@ -195,7 +207,12 @@
   import { ref, computed, onMounted } from 'vue';
   import { useRouter, useRoute, RouterLink } from 'vue-router';
   import axios from 'axios';
-  
+  import { useConfirm } from "primevue/useconfirm";
+  import { useToast } from 'primevue/usetoast';
+
+  const toast = useToast();
+  const confirm = useConfirm();
+
   // ---------------------- 1. Axios instance for Koa backend ----------------------
   // Base URL of the Koa backend API
   const API_BASE_URL = 'http://localhost:3000/api';
@@ -367,6 +384,50 @@
     }).replace(/(\d+)\/(\d+)\/(\d+), (\d+):(\d+)/, '$3-$1-$2 $4:$5');
   };
   
+    const confirmDelete = (commentId) => {
+          confirm.require({
+                message: 'Do you want to delete this record?',
+                header: 'Tip',
+                icon: 'pi pi-info-circle',
+                rejectLabel: 'Cancel',
+                rejectProps: {
+                    label: 'Cancel',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Delete',
+                    severity: 'danger'
+                },
+                accept: () => {
+                  deleteComment(commentId);
+                },
+                reject: () => {
+                    // toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                }
+            });
+      };
+
+    const deleteComment = async (commentId) => {
+          try {
+            // Call the backend API to delete the comment
+            const res = await axios.delete(
+              `http://localhost:3000/api/comments/${resourceIndex.value}/${commentId}`
+            );
+        
+            if (res.data.success) {
+              // Remove the comment from the local list
+              comments.value = comments.value.filter(comment => comment.id !== commentId);
+              toast.add({ severity: 'info', summary: 'Confirmed', detail: '删除评论成功', life: 3000 });
+            } else {
+              throw new Error(res.data.message || '删除评论失败');
+            }
+          } catch (error) {
+            console.error('删除评论失败:', error);
+            toast.add({ severity: 'info', summary: 'Confirmed', detail: '删除评论失败', life: 3000 });
+          }
+  };
+
   //Initial loading 
   onMounted(async () => {
     await loadProductData();

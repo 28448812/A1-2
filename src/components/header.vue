@@ -33,7 +33,7 @@
                         </div>
                     </div> -->
                    
-
+                    <Button v-if="isAdmin" :as="RouterLink" to="/admin/product-list" label="Dashbord"></Button>
                     <Button v-if="!isLogin" :as="RouterLink" to="/auth/login" label="Login"></Button>
                      <SplitButton v-else icon="pi pi-user" :label="userName" :model="items" />
                 </div>
@@ -60,6 +60,12 @@ const isLogin = computed(() => {
      const userInfo = JSON.parse(localStorage.getItem('user'));
      console.log(userInfo);
     return userInfo?.GivenName.length > 0;
+});
+
+const isAdmin = computed(() => {
+     const userInfo = JSON.parse(localStorage.getItem('user'));
+     console.log(userInfo);
+    return userInfo?.role==='admin'
 });
 
 const userName = computed(() => {

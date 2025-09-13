@@ -104,12 +104,7 @@ const onFormSubmit = async (data) => {
 
         if (filterUser.length) {
             if (filterUser[0].password == password) {
-                if(filterUser[0].role=='admin'){
-                    router.push('/admin/product-list');
-                }else{
-                    router.push('/PublicHealth');
-                }
-                
+                router.push('/PublicHealth');
                 localStorage.setItem('user',JSON.stringify(filterUser[0]))
             } else {
                 toast.add({ severity: 'warn', summary: 'Tips', detail: 'Incorrect password', life: 3000 });
