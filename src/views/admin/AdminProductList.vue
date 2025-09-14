@@ -24,6 +24,7 @@
   
           <!-- Product details and manage comments button -->
           <div class="p-6">
+            <Tag severity="danger" :value="product.RatingValAll?.toFixed(1)"></Tag>
             <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ product.title }}</h3>
             <p class="text-gray-600 text-sm mb-6 line-clamp-2">{{ product.description }}</p>
   
@@ -31,7 +32,8 @@
             <RouterLink 
               :to="{ 
                 name: 'AdminCommentManage', 
-                params: { productId: product.id } 
+                params: { productId: product.id,} ,
+                query:{RatingValAll:product.RatingValAll }
               }"
               class="block w-full text-center py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
             >
@@ -65,6 +67,22 @@
         ...item,
         id: item.id || idx + 1 // Ensure each product has a unique ID
       }));
+      console.log(productList.value);
+
+      const {data:allComments} = await axios('http://localhost:3000/api/comments');
+      console.log(allComments);
+      for(let item of  productList.value){
+        let RatingValAll=0;
+        let cont=0
+        for(let el of allComments.data){
+            if(item.id==el.productId){
+                RatingValAll=RatingValAll+el.RatingVal;
+                cont=cont+1
+            }
+        }
+        item.RatingValAll= isNaN(RatingValAll / cont) ? 0 : RatingValAll / cont
+      }
+
       errorMsg.value = '';
     } catch (error) {
       console.error('Failed to load product list:', error);

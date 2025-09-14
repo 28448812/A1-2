@@ -15,13 +15,6 @@
                 
                 <!-- Title + Breadcrumbs -->
                 <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-2 text-gray-500 text-sm mb-4">
-                        <RouterLink to="/">Home</RouterLink>
-                        <i class="fas fa-chevron-right text-xs"></i>
-                        <RouterLink to="/">Educational Resources</RouterLink>
-                        <i class="fas fa-chevron-right text-xs"></i>
-                        <span class="text-gray-700">{{ currentResource.title }}</span>
-                    </div>
                     <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                         {{ currentResource.title }}
                     </h1>
@@ -42,20 +35,19 @@
                         <div>
                             <h3 class="text-xl font-medium text-gray-800 mb-3">Key Learning Objectives</h3>
                             <ul class="list-disc list-inside text-gray-600 space-y-2">
-                                <li>Understand core principles of {{ currentResource.title.toLowerCase() }}</li>
-                                <li>Apply practical strategies to integrate into daily life</li>
-                                <li>Identify common misconceptions about the topic</li>
-                                <li>Access additional tools for further learning</li>
+                                <li v-for="item in currentResource.Key">
+                                  {{ item }}
+                                </li>
                             </ul>
                         </div>
                         
                         <div>
                             <h3 class="text-xl font-medium text-gray-800 mb-3">Recommended For</h3>
                             <div class="flex flex-wrap gap-2">
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Health Educators</span>
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Parents</span>
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Students</span>
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Community Workers</span>
+                                <span v-for="item in currentResource.Tags" 
+                                    class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                                  {{ item  }}  
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -107,11 +99,12 @@
                         <p class="text-right text-sm text-gray-500">
                             {{ newCommentContent.length }} / 500 characters
                         </p>
+                         <Rating v-model="RatingVal" />
                         <!-- Submit button  -->
                         <button
                             @click="submitComment"
                             class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center gap-2"
-                            :disabled="!newCommentContent.trim() || isSubmitting"
+                            :disabled="(!newCommentContent.trim() || RatingVal==null) || isSubmitting"
                         >
                             <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
                             <span>{{ isSubmitting ? 'Posting...' : 'Post Comment' }}</span>
@@ -169,7 +162,10 @@
                                     </div>
                                     <div class="flex justify-between w-full">
                                       <div>
-                                         <h4 class="font-medium text-gray-800">{{ comment.userName }}</h4>
+                                         <div class="flex gap-10">
+                                          <h4 class="font-medium text-gray-800">{{ comment.userName }}</h4>
+                                         <Rating :defaultValue="comment.RatingVal" readonly />
+                                         </div>
                                         <p class="text-sm text-gray-500">{{ formatCommentTime(comment.timestamp) }}</p>
                                       </div>
                                        
@@ -299,6 +295,7 @@
   const isSubmitting = ref(false);    
   const commentError = ref(''); 
   const submitError = ref('');  
+  const RatingVal = ref(null);  
   
   //Get the reviews of the current product from the background
   const fetchComments = async () => {
@@ -322,6 +319,7 @@
   //Submit a new comment to the Koa backend
   const submitComment = async () => {
     const content = newCommentContent.value.trim();
+    // console.log(RatingVal.value)
     if (!content) return;
   
     isSubmitting.value = true;
@@ -330,13 +328,14 @@
       //
       const { data } = await api.post(`/comments/${resourceIndex.value}`, {
         userName: currentUserName.value, 
-        content: content                
+        content: content,
+        RatingVal: RatingVal.value     
       });
   
       if (data.success) {
         comments.value.unshift(data.data);
         newCommentContent.value = '';
-
+        RatingVal.value=null
         setTimeout(() => {
           const firstComment = document.querySelector('.space-y-8 > div:first-child');
           firstComment?.scrollIntoView({ behavior: 'smooth', block: 'start' });

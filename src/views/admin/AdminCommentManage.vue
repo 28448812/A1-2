@@ -27,6 +27,7 @@
           </div>
           <!-- product information-->
           <div class="flex-1">
+            <Tag severity="danger" :value="Number(RatingValAll)?.toFixed(1)"></Tag>
             <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ currentProduct.title }}</h2>
             <p class="text-gray-600 text-sm">{{ currentProduct.description }}</p>
           </div>
@@ -66,12 +67,13 @@
           >
             <!-- Commenter information -->
             <div class="flex justify-between items-start mb-3">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-4">
                 <!-- Username initials avatar -->
                 <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-sm">
                   {{ comment.userName.charAt(0).toUpperCase() }}
                 </div>
                 <span class="font-medium text-gray-800">{{ comment.userName }}</span>
+                 <Rating :defaultValue="comment.RatingVal" readonly />
               </div>
       
               <div class="text-xs text-gray-500">
@@ -158,7 +160,15 @@
   const route = useRoute();
   const router = useRouter();
   // Get productId from route parameters
-  const productId = computed(() => route.params.productId);
+  const productId = computed(() => {
+    console.log(route)
+    return route.params.productId
+  });
+
+  const RatingValAll = computed(() => {
+    console.log(route)
+    return route.query.RatingValAll
+  });
   
   // 2. State variables
   const currentProduct = ref({ title: '', description: '', image: '/img/default.jpg' }); // Current product information
@@ -189,6 +199,7 @@
         id: item.id || idx + 1
       }));
       const matchedProduct = allProducts.find(item => item.id == productId.value);
+      // console.log(matchedProduct)
       if (matchedProduct) {
         currentProduct.value = matchedProduct;
       } else {

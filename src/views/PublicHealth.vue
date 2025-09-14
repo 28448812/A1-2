@@ -31,7 +31,8 @@
                         <img :src="category.image" :alt="category.title" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </div>
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-3 group-hover:text-green-700 transition-colors">{{ category.title }}</h3>
+                        <Tag severity="danger" :value="category.RatingValAll?.toFixed(1)"></Tag>
+                         <h3 class="text-lg font-semibold text-gray-800 mb-3 group-hover:text-green-700 transition-colors">{{ category.title }}</h3>
                         <p class="text-sm text-gray-600 mb-4">{{ category.description }}</p>
                         <button class="text-green-600 hover:text-green-800 font-medium flex items-center transition-colors">Learn more <i class="fas fa-arrow-right ml-2 transform transition-transform group-hover:translate-x-1"></i></button>
                     </div>
@@ -77,6 +78,22 @@ const handleScroll = () => {
 onMounted(async ()=>{
   const {data} = await axios.get('/json/home.json');
   homeInfo.value =data;
+  console.log(data)
+
+  const {data:allComments} = await axios('http://localhost:3000/api/comments');
+  console.log(allComments);
+
+  for(let item of  data.EducationalResources.categories){
+    let RatingValAll=0;
+    let cont=0
+    for(let el of allComments.data){
+        if(item.id==el.productId){
+            RatingValAll=RatingValAll+el.RatingVal;
+            cont=cont+1
+        }
+    }
+    item.RatingValAll= isNaN(RatingValAll / cont) ? 0 : RatingValAll / cont
+  }
 })
 
 // Listen for scroll events
