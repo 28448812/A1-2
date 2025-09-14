@@ -417,13 +417,13 @@
             if (res.data.success) {
               // Remove the comment from the local list
               comments.value = comments.value.filter(comment => comment.id !== commentId);
-              toast.add({ severity: 'info', summary: 'Confirmed', detail: '删除评论成功', life: 3000 });
+              toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Comment deleted successfully', life: 3000 });
             } else {
-              throw new Error(res.data.message || '删除评论失败');
+              throw new Error(res.data.message || 'Failed to delete comment');
             }
           } catch (error) {
-            console.error('删除评论失败:', error);
-            toast.add({ severity: 'info', summary: 'Confirmed', detail: '删除评论失败', life: 3000 });
+            console.error('Failed to delete comment:', error);
+            toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Failed to delete comment', life: 3000 });
           }
   };
 
