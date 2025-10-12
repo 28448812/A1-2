@@ -57,31 +57,39 @@ import { RouterLink } from 'vue-router';
 
 
 const isLogin = computed(() => {
-     const userInfo = JSON.parse(localStorage.getItem('user'));
-     console.log(userInfo);
-    return userInfo?.GivenName.length > 0;
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    // additional check to ensure displayName is a non-empty string
+    const name = userInfo?.displayName  || '';
+    return typeof name === 'string' && name.length > 0;
 });
 
 const isAdmin = computed(() => {
      const userInfo = JSON.parse(localStorage.getItem('user'));
-     console.log(userInfo);
-    return userInfo?.role==='admin'
+     const email = (userInfo?.email || '').toLowerCase();
+     return email === 'admin123@gmail.com';
 });
 
 const userName = computed(() => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    console.log(userInfo);
-    return userInfo?.GivenName;
+    return userInfo?.displayName  || userInfo?.email || 'User';
 });
 const homeInfo = ref({})
+
+import { signOut } from 'firebase/auth';
+import { auth } from '@/common/firebase';
 
 const items = [
     {
         label: 'Logout',
-        command: () => {
-            // router.push('/auth/login');
-            localStorage.removeItem('user');
-            location.reload();
+        command: async () => {
+            try {
+                await signOut(auth);
+            } catch (e) {
+                console.error('signOut error:', e);
+            } finally {
+                localStorage.removeItem('user');
+                location.reload();
+            }
         }
     }
 ];

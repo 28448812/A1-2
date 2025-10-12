@@ -19,6 +19,12 @@ const router = createRouter({
                     component:  () => import('@/views/ResourceDetail.vue'),
                     props: true, // Enable props to receive route params
                 },
+                {
+                    path: '/grid',
+                    name: 'Grid',
+                    component:  () => import('@/views/grid.vue'),
+                    props: true, // Enable props to receive route params
+                }
             ]
         },
         {
@@ -39,7 +45,8 @@ const router = createRouter({
             // Route guard to check for admin authentication
             beforeEnter: (to, from, next) => {
                 const user = JSON.parse(localStorage.getItem('user') || '{}');
-                const isAdmin = user.role === 'admin'; // Check if user role is admin
+                const email = (user.email || '').toLowerCase();
+                const isAdmin = email === 'admin123@gmail.com';
                 if (isAdmin) {
                     next();
                 } else {
