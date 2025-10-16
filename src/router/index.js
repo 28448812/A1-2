@@ -1,3 +1,4 @@
+import { adminEmail } from '@/common/util';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -20,11 +21,10 @@ const router = createRouter({
                     props: true, // Enable props to receive route params
                 },
                 {
-                    path: '/grid',
-                    name: 'Grid',
-                    component:  () => import('@/views/grid.vue'),
-                    props: true, // Enable props to receive route params
-                }
+                    path: '/events',
+                    name: 'Events',
+                    component: () => import('@/views/Mapbox.vue')
+                },
             ]
         },
         {
@@ -46,7 +46,7 @@ const router = createRouter({
             beforeEnter: (to, from, next) => {
                 const user = JSON.parse(localStorage.getItem('user') || '{}');
                 const email = (user.email || '').toLowerCase();
-                const isAdmin = email === 'admin123@gmail.com';
+                const isAdmin = email === adminEmail;
                 if (isAdmin) {
                     next();
                 } else {
@@ -67,7 +67,13 @@ const router = createRouter({
                     name: 'AdminCommentManage',
                     component: () => import('@/views/admin/AdminCommentManage.vue'),
                     props: true 
-                  }
+                  },
+                {
+                    path: 'userManage',
+                    name: 'UserManage',
+                    component:  () => import('@/views/admin/UserManage.vue'),
+                    props: true, // Enable props to receive route params
+                }
             ]
         }
     ]

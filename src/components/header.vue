@@ -58,7 +58,7 @@ import { RouterLink } from 'vue-router';
 
 const isLogin = computed(() => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    // additional check to ensure displayName is a non-empty string
+    // 兼容 Firebase 登录后仅有 displayName 的情况
     const name = userInfo?.displayName  || '';
     return typeof name === 'string' && name.length > 0;
 });
@@ -66,7 +66,7 @@ const isLogin = computed(() => {
 const isAdmin = computed(() => {
      const userInfo = JSON.parse(localStorage.getItem('user'));
      const email = (userInfo?.email || '').toLowerCase();
-     return email === 'admin123@gmail.com';
+     return email === adminEmail;
 });
 
 const userName = computed(() => {
@@ -77,6 +77,7 @@ const homeInfo = ref({})
 
 import { signOut } from 'firebase/auth';
 import { auth } from '@/common/firebase';
+import { adminEmail } from "@/common/util";
 
 const items = [
     {
