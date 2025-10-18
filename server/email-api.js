@@ -44,7 +44,7 @@ const upload = multer({
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true)
     } else {
-      cb(new Error('不支持的文件类型'), false)
+      cb(new Error('Unsupported file types'), false)
     }
   }
 })
