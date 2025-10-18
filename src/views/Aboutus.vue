@@ -16,7 +16,7 @@
         <form @submit.prevent="sendEmail" class="space-y-6">
           <!-- Name-->
           <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">name</label>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
             <InputText
               id="name"
               v-model="formData.name"
@@ -28,7 +28,7 @@
 
           <!-- Theme-->
           <div>
-            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Theme</label>
+            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
             <InputText
               id="subject"
               v-model="formData.subject"
@@ -40,7 +40,7 @@
 
           <!-- Message-->
           <div>
-            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">message</label>
+            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
             <Textarea
               id="message"
               v-model="formData.message"
