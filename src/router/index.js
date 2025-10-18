@@ -25,6 +25,16 @@ const router = createRouter({
                     name: 'Events',
                     component: () => import('@/views/Mapbox.vue')
                 },
+                {
+                    path: '/recipes',
+                    name: 'Recipes',
+                    component: () => import('@/views/Recipes.vue')
+                },
+                {
+                    path: '/aboutus',
+                    name: 'Aboutus',
+                    component: () => import('@/views/Aboutus.vue')
+                },
             ]
         },
         {
